@@ -1550,7 +1550,7 @@
 									],
 									"outputs": [
 										{
-											"referenceName": "DS_ADLS_Dynamic_Parquet",
+											"referenceName": "DS_ADLS_Dynamic_Parquet_Sink",
 											"type": "DatasetReference",
 											"parameters": {
 												"Container": "gpt-bronze",
@@ -1669,7 +1669,7 @@
 												"userProperties": [],
 												"typeProperties": {
 													"dataset": {
-														"referenceName": "DS_ADLS_Dynamic_Parquet",
+														"referenceName": "DS_ADLS_Dynamic_Parquet_Sink",
 														"type": "DatasetReference",
 														"parameters": {
 															"Container": "gpt-bronze",
@@ -1883,7 +1883,7 @@
 				"[concat(variables('factoryId'), '/datasets/Dynamic_SQL_ETL_Control')]",
 				"[concat(variables('factoryId'), '/datasets/Dynamic_SQL_CDC_Control')]",
 				"[concat(variables('factoryId'), '/datasets/DS_SQL_Dynamic_Source')]",
-				"[concat(variables('factoryId'), '/datasets/DS_ADLS_Dynamic_Parquet')]",
+				"[concat(variables('factoryId'), '/datasets/DS_ADLS_Dynamic_Parquet_Sink')]",
 				"[concat(variables('factoryId'), '/linkedServices/LS_AzureSqlDB')]"
 			]
 		},
@@ -2006,7 +2006,7 @@
 									],
 									"outputs": [
 										{
-											"referenceName": "DS_ADLS_Dynamic_Parquet",
+											"referenceName": "DS_ADLS_Dynamic_Parquet_Sink",
 											"type": "DatasetReference",
 											"parameters": {
 												"Container": "gpt-bronze",
@@ -2125,7 +2125,7 @@
 												"userProperties": [],
 												"typeProperties": {
 													"dataset": {
-														"referenceName": "DS_ADLS_Dynamic_Parquet",
+														"referenceName": "DS_ADLS_Dynamic_Parquet_Sink",
 														"type": "DatasetReference",
 														"parameters": {
 															"Container": "gpt-bronze",
@@ -2339,7 +2339,7 @@
 				"[concat(variables('factoryId'), '/datasets/Dynamic_SQL_ETL_Control')]",
 				"[concat(variables('factoryId'), '/datasets/Dynamic_SQL_CDC_Control')]",
 				"[concat(variables('factoryId'), '/datasets/DS_SQL_Dynamic_Source')]",
-				"[concat(variables('factoryId'), '/datasets/DS_ADLS_Dynamic_Parquet')]",
+				"[concat(variables('factoryId'), '/datasets/DS_ADLS_Dynamic_Parquet_Sink')]",
 				"[concat(variables('factoryId'), '/linkedServices/LS_AzureSqlDB')]"
 			]
 		},
@@ -2468,7 +2468,7 @@
 									],
 									"outputs": [
 										{
-											"referenceName": "DS_ADLS_Dynamic_Parquet",
+											"referenceName": "DS_ADLS_Dynamic_Parquet_Sink",
 											"type": "DatasetReference",
 											"parameters": {
 												"Container": "gpt-bronze",
@@ -2533,7 +2533,7 @@
 												"userProperties": [],
 												"typeProperties": {
 													"dataset": {
-														"referenceName": "DS_ADLS_Dynamic_Parquet",
+														"referenceName": "DS_ADLS_Dynamic_Parquet_Sink",
 														"type": "DatasetReference",
 														"parameters": {
 															"Container": "gpt-bronze",
@@ -2808,7 +2808,7 @@
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/Dynamic_SQL_ETL_Control')]",
 				"[concat(variables('factoryId'), '/datasets/DS_SQL_Dynamic_Source')]",
-				"[concat(variables('factoryId'), '/datasets/DS_ADLS_Dynamic_Parquet')]",
+				"[concat(variables('factoryId'), '/datasets/DS_ADLS_Dynamic_Parquet_Sink')]",
 				"[concat(variables('factoryId'), '/linkedServices/LS_AzureSqlDB')]"
 			]
 		},
@@ -3216,7 +3216,7 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/DS_ADLS_Dynamic_Parquet')]",
+			"name": "[concat(parameters('factoryName'), '/DS_ADLS_Dynamic_Parquet_Sink')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
 			"properties": {

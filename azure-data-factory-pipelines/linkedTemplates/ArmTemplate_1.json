@@ -1655,7 +1655,7 @@
 									],
 									"outputs": [
 										{
-											"referenceName": "DS_ADLS_Dynamic_Parquet",
+											"referenceName": "DS_ADLS_Dynamic_Parquet_Sink",
 											"type": "DatasetReference",
 											"parameters": {
 												"Container": "gpt-bronze",
@@ -1774,7 +1774,7 @@
 												"userProperties": [],
 												"typeProperties": {
 													"dataset": {
-														"referenceName": "DS_ADLS_Dynamic_Parquet",
+														"referenceName": "DS_ADLS_Dynamic_Parquet_Sink",
 														"type": "DatasetReference",
 														"parameters": {
 															"Container": "gpt-bronze",
@@ -2108,7 +2108,7 @@
 									],
 									"outputs": [
 										{
-											"referenceName": "DS_ADLS_Dynamic_Parquet",
+											"referenceName": "DS_ADLS_Dynamic_Parquet_Sink",
 											"type": "DatasetReference",
 											"parameters": {
 												"Container": "gpt-bronze",
@@ -2227,7 +2227,7 @@
 												"userProperties": [],
 												"typeProperties": {
 													"dataset": {
-														"referenceName": "DS_ADLS_Dynamic_Parquet",
+														"referenceName": "DS_ADLS_Dynamic_Parquet_Sink",
 														"type": "DatasetReference",
 														"parameters": {
 															"Container": "gpt-bronze",
@@ -2567,7 +2567,7 @@
 									],
 									"outputs": [
 										{
-											"referenceName": "DS_ADLS_Dynamic_Parquet",
+											"referenceName": "DS_ADLS_Dynamic_Parquet_Sink",
 											"type": "DatasetReference",
 											"parameters": {
 												"Container": "gpt-bronze",
@@ -2632,7 +2632,7 @@
 												"userProperties": [],
 												"typeProperties": {
 													"dataset": {
-														"referenceName": "DS_ADLS_Dynamic_Parquet",
+														"referenceName": "DS_ADLS_Dynamic_Parquet_Sink",
 														"type": "DatasetReference",
 														"parameters": {
 															"Container": "gpt-bronze",
