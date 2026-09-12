@@ -1,5 +1,5 @@
 {
-	"name": "DS_ADLS_Dynamic_Parquet",
+	"name": "DS_ADLS_Dynamic_Parquet_Sink",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "LS_AzureDataLake",
