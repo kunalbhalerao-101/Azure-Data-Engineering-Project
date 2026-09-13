@@ -34,8 +34,133 @@
 					},
 					"firstRowOnly": false
 				}
+			},
+			{
+				"name": "ForEach_Table",
+				"type": "ForEach",
+				"dependsOn": [
+					{
+						"activity": "Lookup_Tables",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@activity('Lookup_Tables').output.value",
+						"type": "Expression"
+					},
+					"batchCount": 4,
+					"activities": [
+						{
+							"name": "Copy_Full",
+							"type": "Copy",
+							"dependsOn": [
+								{
+									"activity": "Current",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
+							"policy": {
+								"timeout": "0.12:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"source": {
+									"type": "AzureSqlSource",
+									"queryTimeout": "02:00:00",
+									"partitionOption": "None"
+								},
+								"sink": {
+									"type": "DelimitedTextSink",
+									"storeSettings": {
+										"type": "AzureBlobFSWriteSettings"
+									},
+									"formatSettings": {
+										"type": "DelimitedTextWriteSettings",
+										"quoteAllText": true,
+										"fileExtension": ".txt"
+									}
+								},
+								"enableStaging": false,
+								"translator": {
+									"type": "TabularTranslator",
+									"typeConversion": true,
+									"typeConversionSettings": {
+										"allowDataTruncation": true,
+										"treatBooleanAsNumber": false
+									}
+								}
+							},
+							"inputs": [
+								{
+									"referenceName": "DS_SQL_Source",
+									"type": "DatasetReference",
+									"parameters": {
+										"p_schema": {
+											"value": "@item().source_schema",
+											"type": "Expression"
+										},
+										"p_table": {
+											"value": "@item().source_table",
+											"type": "Expression"
+										}
+									}
+								}
+							],
+							"outputs": [
+								{
+									"referenceName": "DS_SQL_Sink",
+									"type": "DatasetReference",
+									"parameters": {
+										"p_source": {
+											"value": "@item().source_type",
+											"type": "Expression"
+										},
+										"p_table": {
+											"value": "@item().target_table",
+											"type": "Expression"
+										},
+										"p_file": {
+											"value": "@concat(\n    item().source_table,\n    '_',\n    formatDateTime(variables('Current'),'yyyy-MM-dd | HH:mm:ss'),\n    '.csv'\n)",
+											"type": "Expression"
+										},
+										"p_load_type": "FULL"
+									}
+								}
+							]
+						},
+						{
+							"name": "Current",
+							"type": "SetVariable",
+							"dependsOn": [],
+							"policy": {
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"variableName": "Current",
+								"value": "@convertFromUtc(utcNow(), 'India Standard Time')\n"
+							}
+						}
+					]
+				}
 			}
 		],
+		"variables": {
+			"Current": {
+				"type": "String"
+			}
+		},
 		"folder": {
 			"name": "Country Data"
 		},
