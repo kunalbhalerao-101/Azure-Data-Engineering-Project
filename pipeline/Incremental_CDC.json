@@ -620,7 +620,7 @@
 							"userProperties": [],
 							"typeProperties": {
 								"expression": {
-									"value": "@greater(\n    ticks(activity('Current_Max_LSN').output.firstRow.CurrentMaxLSN),\n    ticks(activity('Last_CDC_LSN').output.firstRow.last_processed_lsn)\n)",
+									"value": "@greater(\n    activity('Current_Max_LSN').output.firstRow.CurrentMaxLSN,\n    activity('Last_CDC_LSN').output.firstRow.last_processed_lsn\n)",
 									"type": "Expression"
 								},
 								"ifFalseActivities": [
