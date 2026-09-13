@@ -292,7 +292,7 @@
 													"p_source": "@item().source_type",
 													"p_table": "@item().target_table",
 													"p_file": {
-														"value": "@concat(\n    item().source_table,\n    '_CDC_',\n    formatDateTime(utcnow(),'yyyy-MM-dd | HH:mm:ss'),\n    '.csv'\n)",
+														"value": "@concat(\n    item().source_table,\n    '_',\n    formatDateTime(utcNow(),'yyyy-MM-dd | HH:mm:ss'),\n    '.csv'\n)",
 														"type": "Expression"
 													}
 												}
