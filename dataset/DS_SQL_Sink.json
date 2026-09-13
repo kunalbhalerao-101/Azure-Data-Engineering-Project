@@ -14,6 +14,9 @@
 			},
 			"p_file": {
 				"type": "string"
+			},
+			"p_load_type": {
+				"type": "string"
 			}
 		},
 		"folder": {
@@ -29,7 +32,7 @@
 					"type": "Expression"
 				},
 				"folderPath": {
-					"value": "Azure_SQL-DB/@{dataset().p_source}/@{dataset().p_table}",
+					"value": "Azure_SQL-DB/@{dataset().p_source}/@{dataset().p_load_type}/@{dataset().p_table}",
 					"type": "Expression"
 				},
 				"fileSystem": "gpt-bronze"
