@@ -14,7 +14,7 @@
 			}
 		},
 		"folder": {
-			"name": "Country Data"
+			"name": "A) Country Data"
 		},
 		"annotations": [],
 		"type": "AzureSqlTable",
