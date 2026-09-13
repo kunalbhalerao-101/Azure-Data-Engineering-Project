@@ -207,7 +207,7 @@
 										"userProperties": [],
 										"typeProperties": {
 											"dataset": {
-												"referenceName": "DS_SQL_Sink",
+												"referenceName": "DS_SQL_Sink_Incremental",
 												"type": "DatasetReference",
 												"parameters": {
 													"p_source": {
@@ -296,13 +296,13 @@
 										],
 										"outputs": [
 											{
-												"referenceName": "DS_SQL_Sink",
+												"referenceName": "DS_SQL_Sink_Incremental",
 												"type": "DatasetReference",
 												"parameters": {
 													"p_source": "@item().source_type",
 													"p_table": "@item().target_table",
 													"p_file": {
-														"value": "@concat(\n    item().source_table,\n    '_',\n    formatDateTime(variables('Current'),'yyyy-MM-dd | HH:mm:ss'),\n    '.csv'\n)",
+														"value": "@concat(\n    item().source_table,\n    '_',\n    formatDateTime(utcNow(),'yyyy-MM-dd | HH:mm:ss'),\n    '.csv'\n)",
 														"type": "Expression"
 													},
 													"p_load_type": "Incremental"

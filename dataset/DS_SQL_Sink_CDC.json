@@ -1,5 +1,5 @@
 {
-	"name": "DS_SQL_Sink_Incremental",
+	"name": "DS_SQL_Sink_CDC",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "LS_AzureDataLake",
