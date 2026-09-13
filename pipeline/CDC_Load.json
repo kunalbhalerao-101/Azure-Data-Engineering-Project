@@ -187,9 +187,14 @@
 									{
 										"name": "No File Created",
 										"type": "Delete",
-										"state": "Inactive",
-										"onInactiveMarkAs": "Succeeded",
-										"dependsOn": [],
+										"dependsOn": [
+											{
+												"activity": "Log_CDC_No_Data",
+												"dependencyConditions": [
+													"Succeeded"
+												]
+											}
+										],
 										"policy": {
 											"timeout": "0.12:00:00",
 											"retry": 0,
@@ -200,7 +205,7 @@
 										"userProperties": [],
 										"typeProperties": {
 											"dataset": {
-												"referenceName": "DS_SQL_Sink_Incremental",
+												"referenceName": "DS_SQL_Sink_CDC",
 												"type": "DatasetReference",
 												"parameters": {
 													"p_source": {
@@ -208,14 +213,13 @@
 														"type": "Expression"
 													},
 													"p_table": {
-														"value": "@item().target_table",
+														"value": "@item().source_table",
 														"type": "Expression"
 													},
 													"p_file": {
-														"value": "@concat(\n    item().source_table,\n    '_',\n    formatDateTime(variables('Current'),'yyyy-MM-dd | HH:mm:ss'),\n    '.csv'\n)",
+														"value": "@concat(\n    item().source_table,\n    '_',\n    formatDateTime(utcNow(),'yyyy-MM-dd | HH:mm:ss'),\n    '.csv'\n)",
 														"type": "Expression"
-													},
-													"p_load_type": "Incremental"
+													}
 												}
 											},
 											"enableLogging": false,
