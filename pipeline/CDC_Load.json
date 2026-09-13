@@ -77,7 +77,7 @@
 								"source": {
 									"type": "AzureSqlSource",
 									"sqlReaderQuery": {
-										"value": "@concat(\n    'SELECT CONVERT(VARCHAR(20), sys.fn_cdc_get_max_lsn(), 1) AS CurrentMaxLSN'\n)",
+										"value": "@concat(\n    'SELECT CONVERT(VARCHAR(20), sys.fn_cdc_get_max_lsn(), 2) AS CurrentMaxLSN'\n)",
 										"type": "Expression"
 									},
 									"queryTimeout": "02:00:00",
@@ -109,7 +109,7 @@
 								"source": {
 									"type": "AzureSqlSource",
 									"sqlReaderQuery": {
-										"value": "@concat(\n    'SELECT last_processed_lsn, capture_instance ',\n    'FROM dbo2.etl_cdc_control ',\n    'WHERE table_id = ',\n    string(item().table_id)\n)",
+										"value": "@concat(\n    'SELECT ',\n    'CONVERT(VARCHAR(20), last_processed_lsn, 2) AS last_processed_lsn, ',\n    'capture_instance ',\n    'FROM dbo2.etl_cdc_control ',\n    'WHERE table_id = ',\n    string(item().table_id)\n)",
 										"type": "Expression"
 									},
 									"queryTimeout": "02:00:00",
@@ -244,7 +244,7 @@
 											"source": {
 												"type": "AzureSqlSource",
 												"sqlReaderQuery": {
-													"value": "@concat(\n    'SELECT * FROM cdc.[',\n    activity('Last_CDC_LSN').output.firstRow.capture_instance,\n    '_CT] ',\n    'WHERE __$start_lsn > CONVERT(binary(10), ''',\n    string(activity('Last_CDC_LSN').output.firstRow.last_processed_lsn),\n    ''', 1) ',\n    'AND __$start_lsn <= CONVERT(binary(10), ''',\n    string(activity('Current_Max_LSN').output.firstRow.CurrentMaxLSN),\n    ''', 1)'\n)",
+													"value": "@concat(\n    'SELECT * FROM cdc.',\n    activity('Last_CDC_LSN').output.firstRow.capture_instance,\n    '_CT WHERE __$start_lsn > CONVERT(binary(10), ''',\n    activity('Last_CDC_LSN').output.firstRow.last_processed_lsn,\n    ''', 2) AND __$start_lsn <= CONVERT(binary(10), ''',\n    activity('Current_Max_LSN').output.firstRow.CurrentMaxLSN,\n    ''', 2)'\n)",
 													"type": "Expression"
 												},
 												"queryTimeout": "02:00:00",
@@ -292,7 +292,7 @@
 													"p_source": "@item().source_type",
 													"p_table": "@item().target_table",
 													"p_file": {
-														"value": "@concat(\n    item().source_table,\n    '_',\n    formatDateTime(variables('Current'),'yyyy-MM-dd | HH:mm:ss'),\n    '.csv'\n)",
+														"value": "@concat(\n    item().source_table,\n    '_CDC_',\n    formatDateTime(utcnow(),'yyyy-MM-dd | HH:mm:ss'),\n    '.csv'\n)",
 														"type": "Expression"
 													},
 													"p_load_type": "Incremetal"
