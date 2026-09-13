@@ -189,16 +189,11 @@
 										}
 									},
 									{
-										"name": "No File Created",
+										"name": "No Files Created",
 										"type": "Delete",
-										"dependsOn": [
-											{
-												"activity": "Log_No_Data",
-												"dependencyConditions": [
-													"Succeeded"
-												]
-											}
-										],
+										"state": "Inactive",
+										"onInactiveMarkAs": "Succeeded",
+										"dependsOn": [],
 										"policy": {
 											"timeout": "0.12:00:00",
 											"retry": 0,
@@ -210,7 +205,22 @@
 										"typeProperties": {
 											"dataset": {
 												"referenceName": "DS_SQL_Sink",
-												"type": "DatasetReference"
+												"type": "DatasetReference",
+												"parameters": {
+													"p_source": {
+														"value": "@item().source_type",
+														"type": "Expression"
+													},
+													"p_table": {
+														"value": "@item().target_table",
+														"type": "Expression"
+													},
+													"p_file": {
+														"value": "@concat(\n    item().source_table,\n    '_',\n    formatDateTime(variables('Current'),'yyyy-MM-dd | HH:mm:ss'),\n    '.csv'\n)",
+														"type": "Expression"
+													},
+													"p_load_type": "Incremental"
+												}
 											},
 											"enableLogging": false,
 											"storeSettings": {
@@ -653,6 +663,48 @@
 										"linkedServiceName": {
 											"referenceName": "LS_AzureSqlDB",
 											"type": "LinkedServiceReference"
+										}
+									},
+									{
+										"name": "No File Created",
+										"type": "Delete",
+										"state": "Inactive",
+										"onInactiveMarkAs": "Succeeded",
+										"dependsOn": [],
+										"policy": {
+											"timeout": "0.12:00:00",
+											"retry": 0,
+											"retryIntervalInSeconds": 30,
+											"secureOutput": false,
+											"secureInput": false
+										},
+										"userProperties": [],
+										"typeProperties": {
+											"dataset": {
+												"referenceName": "DS_SQL_Sink",
+												"type": "DatasetReference",
+												"parameters": {
+													"p_source": {
+														"value": "@item().source_type",
+														"type": "Expression"
+													},
+													"p_table": {
+														"value": "@item().target_table",
+														"type": "Expression"
+													},
+													"p_file": {
+														"value": "@concat(\n    item().source_table,\n    '_',\n    formatDateTime(variables('Current'),'yyyy-MM-dd | HH:mm:ss'),\n    '.csv'\n)",
+														"type": "Expression"
+													},
+													"p_load_type": "Incremental"
+												}
+											},
+											"enableLogging": false,
+											"storeSettings": {
+												"type": "AzureBlobFSReadSettings",
+												"recursive": true,
+												"enablePartitionDiscovery": false
+											}
 										}
 									}
 								],
