@@ -59,7 +59,7 @@
 							"type": "Lookup",
 							"dependsOn": [
 								{
-									"activity": "Last_CDC_LSN",
+									"activity": "CDC_Change_Check",
 									"dependencyConditions": [
 										"Succeeded"
 									]
@@ -139,7 +139,7 @@
 							"userProperties": [],
 							"typeProperties": {
 								"expression": {
-									"value": "@greater(\n    activity('Current_Max_LSN').output.firstRow.CurrentMaxLSN,\n    activity('Last_CDC_LSN').output.firstRow.last_processed_lsn\n)",
+									"value": "@equals(\n    activity('CDC_Change_Check').output.firstRow.HasChanges,\n    1\n)",
 									"type": "Expression"
 								},
 								"ifFalseActivities": [
@@ -160,7 +160,7 @@
 											"storedProcedureParameters": {
 												"new_watermark": {
 													"value": {
-														"value": "@activity('Last_CDC_LSN').output.firstRow.last_processed_lsn",
+														"value": "@null",
 														"type": "Expression"
 													},
 													"type": "DateTime"
@@ -394,6 +394,49 @@
 										}
 									}
 								]
+							}
+						},
+						{
+							"name": "CDC_Change_Check",
+							"type": "Lookup",
+							"dependsOn": [
+								{
+									"activity": "Last_CDC_LSN",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
+							"policy": {
+								"timeout": "0.12:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"source": {
+									"type": "AzureSqlSource",
+									"sqlReaderQuery": {
+										"value": "@concat(\n    'SELECT CASE WHEN EXISTS (',\n    'SELECT 1 FROM cdc.',\n    activity('Last_CDC_LSN').output.firstRow.capture_instance,\n    '_CT WHERE __$start_lsn > CONVERT(binary(10), ''',\n    activity('Last_CDC_LSN').output.firstRow.last_processed_lsn,\n    ''', 2) AND __$start_lsn <= sys.fn_cdc_get_max_lsn()',\n    ') THEN 1 ELSE 0 END AS HasChanges'\n)",
+										"type": "Expression"
+									},
+									"queryTimeout": "02:00:00",
+									"partitionOption": "None"
+								},
+								"dataset": {
+									"referenceName": "DS_SQL_Source",
+									"type": "DatasetReference",
+									"parameters": {
+										"p_schema": "cdc",
+										"p_table": {
+											"value": "@concat(\n    activity('Last_CDC_LSN').output.firstRow.capture_instance,\n    '_CT'\n)",
+											"type": "Expression"
+										}
+									}
+								},
+								"firstRowOnly": true
 							}
 						}
 					]
