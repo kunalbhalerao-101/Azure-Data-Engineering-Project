@@ -238,14 +238,7 @@
 									{
 										"name": "Copy Incremental Data",
 										"type": "Copy",
-										"dependsOn": [
-											{
-												"activity": "Current",
-												"dependencyConditions": [
-													"Succeeded"
-												]
-											}
-										],
+										"dependsOn": [],
 										"policy": {
 											"timeout": "0.12:00:00",
 											"retry": 0,
@@ -320,6 +313,8 @@
 									{
 										"name": "Current",
 										"type": "SetVariable",
+										"state": "Inactive",
+										"onInactiveMarkAs": "Succeeded",
 										"dependsOn": [],
 										"policy": {
 											"secureOutput": false,
