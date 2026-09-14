@@ -173,7 +173,10 @@
 													"type": "DateTime"
 												},
 												"pipeline_run_id": {
-													"value": "@pipeline().RunId",
+													"value": {
+														"value": "@pipeline().RunId",
+														"type": "Expression"
+													},
 													"type": "String"
 												},
 												"rows_copied": {
@@ -181,7 +184,10 @@
 													"type": "Int64"
 												},
 												"table_id": {
-													"value": "@item().table_id",
+													"value": {
+														"value": "@item().table_id",
+														"type": "Expression"
+													},
 													"type": "Int32"
 												}
 											}
@@ -323,7 +329,10 @@
 										"userProperties": [],
 										"typeProperties": {
 											"variableName": "Current",
-											"value": "@convertTimeZone(utcNow(),'UTC','India Standard Time')"
+											"value": {
+												"value": "@convertTimeZone(utcNow(),'UTC','India Standard Time')",
+												"type": "Expression"
+											}
 										}
 									},
 									{
@@ -349,11 +358,8 @@
 											"storedProcedureName": "[dbo2].[usp_Update_Watermark]",
 											"storedProcedureParameters": {
 												"new_watermark": {
-													"value": {
-														"value": "@activity('New_Watermark').output.firstRow.new_watermark",
-														"type": "Expression"
-													},
-													"type": "DateTime"
+													"value": "@activity('New_Watermark').output.firstRow.new_watermark",
+													"type": "String"
 												},
 												"table_id": {
 													"value": "@item().table_id",
@@ -396,7 +402,10 @@
 													"type": "DateTime"
 												},
 												"pipeline_run_id": {
-													"value": "@pipeline().RunId",
+													"value": {
+														"value": "@pipeline().RunId",
+														"type": "Expression"
+													},
 													"type": "String"
 												},
 												"rows_copied": {
@@ -407,7 +416,10 @@
 													"type": "Int64"
 												},
 												"table_id": {
-													"value": "@item().table_id",
+													"value": {
+														"value": "@item().table_id",
+														"type": "Expression"
+													},
 													"type": "Int32"
 												}
 											}
@@ -447,11 +459,17 @@
 													"type": "String"
 												},
 												"pipeline_run_id": {
-													"value": "@pipeline().RunId",
+													"value": {
+														"value": "@pipeline().RunId",
+														"type": "Expression"
+													},
 													"type": "String"
 												},
 												"table_id": {
-													"value": "@item().table_id",
+													"value": {
+														"value": "@item().table_id",
+														"type": "Expression"
+													},
 													"type": "Int32"
 												}
 											}
@@ -494,7 +512,10 @@
 										"type": "DateTime"
 									},
 									"load_type": {
-										"value": "@item().load_type",
+										"value": {
+											"value": "@item().load_type",
+											"type": "Expression"
+										},
 										"type": "String"
 									},
 									"pipeline_name": {
@@ -512,7 +533,10 @@
 										"type": "String"
 									},
 									"source_schema": {
-										"value": "@item().source_schema",
+										"value": {
+											"value": "@item().source_schema",
+											"type": "Expression"
+										},
 										"type": "String"
 									},
 									"source_table": {
@@ -523,7 +547,10 @@
 										"type": "String"
 									},
 									"table_id": {
-										"value": "@item().table_id",
+										"value": {
+											"value": "@item().table_id",
+											"type": "Expression"
+										},
 										"type": "Int32"
 									}
 								}
