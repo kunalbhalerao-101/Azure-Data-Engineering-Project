@@ -237,14 +237,9 @@
 											{
 												"name": "No File Created",
 												"type": "Delete",
-												"dependsOn": [
-													{
-														"activity": "Log_CDC_No_Data",
-														"dependencyConditions": [
-															"Succeeded"
-														]
-													}
-												],
+												"state": "Inactive",
+												"onInactiveMarkAs": "Succeeded",
+												"dependsOn": [],
 												"policy": {
 													"timeout": "0.12:00:00",
 													"retry": 0,
