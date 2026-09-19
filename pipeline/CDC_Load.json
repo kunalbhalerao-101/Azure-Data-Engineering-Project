@@ -166,7 +166,10 @@
 													"type": "DateTime"
 												},
 												"pipeline_run_id": {
-													"value": "@pipeline().RunId",
+													"value": {
+														"value": "@pipeline().RunId",
+														"type": "Expression"
+													},
 													"type": "String"
 												},
 												"rows_copied": {
@@ -174,7 +177,10 @@
 													"type": "Int64"
 												},
 												"table_id": {
-													"value": "@item().table_id",
+													"value": {
+														"value": "@item().table_id",
+														"type": "Expression"
+													},
 													"type": "Int32"
 												}
 											}
@@ -187,14 +193,9 @@
 									{
 										"name": "No File Created",
 										"type": "Delete",
-										"dependsOn": [
-											{
-												"activity": "Log_CDC_No_Data",
-												"dependencyConditions": [
-													"Succeeded"
-												]
-											}
-										],
+										"state": "Inactive",
+										"onInactiveMarkAs": "Succeeded",
+										"dependsOn": [],
 										"policy": {
 											"timeout": "0.12:00:00",
 											"retry": 0,
@@ -333,7 +334,10 @@
 													"type": "Byte[]"
 												},
 												"table_id": {
-													"value": "@item().table_id",
+													"value": {
+														"value": "@item().table_id",
+														"type": "Expression"
+													},
 													"type": "Int32"
 												}
 											}
