@@ -358,11 +358,17 @@
 											"storedProcedureName": "[dbo2].[usp_Update_Watermark]",
 											"storedProcedureParameters": {
 												"new_watermark": {
-													"value": "@activity('New_Watermark').output.firstRow.new_watermark",
+													"value": {
+														"value": "@activity('New_Watermark').output.firstRow.new_watermark",
+														"type": "Expression"
+													},
 													"type": "String"
 												},
 												"table_id": {
-													"value": "@item().table_id",
+													"value": {
+														"value": "@item().table_id",
+														"type": "Expression"
+													},
 													"type": "Int32"
 												}
 											}
