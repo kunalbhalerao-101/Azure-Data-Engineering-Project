@@ -1684,6 +1684,33 @@
 								}
 							]
 						}
+					},
+					{
+						"name": "Incremental_Load",
+						"type": "DatabricksJob",
+						"dependsOn": [
+							{
+								"activity": "ForEach_Table",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"jobId": "434952785974717"
+						},
+						"linkedServiceName": {
+							"referenceName": "AzureDatabricks_LS",
+							"type": "LinkedServiceReference"
+						}
 					}
 				],
 				"policy": {
@@ -1701,6 +1728,7 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/DS_SQL_Source')]",
+				"[concat(variables('factoryId'), '/linkedServices/AzureDatabricks_LS')]",
 				"[concat(variables('factoryId'), '/linkedServices/LS_AzureSqlDB')]",
 				"[concat(variables('factoryId'), '/datasets/DS_SQL_Sink_Incremental')]"
 			]
@@ -5622,6 +5650,21 @@
 				"[concat(variables('factoryId'), '/datasets/DF_Source')]",
 				"[concat(variables('factoryId'), '/datasets/DF_Sink')]"
 			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/AzureDatabricks_LS')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureDatabricks",
+				"typeProperties": {
+					"domain": "https://adb-7405606140133210.10.azuredatabricks.net",
+					"authentication": "MSI",
+					"workspaceResourceId": "/subscriptions/da937504-7462-45bd-acf6-145ae187c333/resourceGroups/ADF_Tutorial/providers/Microsoft.Databricks/workspaces/azure-databricks"
+				}
+			},
+			"dependsOn": []
 		}
 	]
 }

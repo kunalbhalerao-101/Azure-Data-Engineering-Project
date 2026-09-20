@@ -116,6 +116,21 @@
 			"dependsOn": []
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/AzureDatabricks_LS')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureDatabricks",
+				"typeProperties": {
+					"domain": "https://adb-7405606140133210.10.azuredatabricks.net",
+					"authentication": "MSI",
+					"workspaceResourceId": "/subscriptions/da937504-7462-45bd-acf6-145ae187c333/resourceGroups/ADF_Tutorial/providers/Microsoft.Databricks/workspaces/azure-databricks"
+				}
+			},
+			"dependsOn": []
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/ChatGpt_ADLS_FactSales_Sink')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
@@ -730,79 +745,6 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/linkedServices/LS_AzureDataLake')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/DS_SQL_Dynamic_Source')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "LS_AzureSqlDB",
-					"type": "LinkedServiceReference"
-				},
-				"parameters": {
-					"Schema": {
-						"type": "string"
-					},
-					"TableName": {
-						"type": "string"
-					}
-				},
-				"folder": {
-					"name": "Dynamic DS"
-				},
-				"annotations": [],
-				"type": "AzureSqlTable",
-				"schema": [
-					{
-						"name": "TableName",
-						"type": "nvarchar"
-					},
-					{
-						"name": "SourceSchema",
-						"type": "nvarchar"
-					},
-					{
-						"name": "WatermarkColumn",
-						"type": "nvarchar"
-					},
-					{
-						"name": "LastWatermark",
-						"type": "datetime2",
-						"scale": 3
-					},
-					{
-						"name": "LastLoadTime",
-						"type": "datetime2",
-						"scale": 3
-					},
-					{
-						"name": "LoadType",
-						"type": "nvarchar"
-					},
-					{
-						"name": "SinkPath",
-						"type": "nvarchar"
-					},
-					{
-						"name": "IsActive",
-						"type": "bit"
-					}
-				],
-				"typeProperties": {
-					"schema": {
-						"value": "@dataset().Schema",
-						"type": "Expression"
-					},
-					"table": {
-						"value": "@dataset().TableName",
-						"type": "Expression"
-					}
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/LS_AzureSqlDB')]"
 			]
 		}
 	]
