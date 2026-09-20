@@ -1063,6 +1063,33 @@
 								}
 							]
 						}
+					},
+					{
+						"name": "CDC_Load",
+						"type": "DatabricksJob",
+						"dependsOn": [
+							{
+								"activity": "ForEach_Table",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"jobId": "800562325809657"
+						},
+						"linkedServiceName": {
+							"referenceName": "AzureDatabricks_LS",
+							"type": "LinkedServiceReference"
+						}
 					}
 				],
 				"policy": {
@@ -1243,6 +1270,33 @@
 									}
 								}
 							]
+						}
+					},
+					{
+						"name": "Full_Load",
+						"type": "DatabricksJob",
+						"dependsOn": [
+							{
+								"activity": "ForEach_Table",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"jobId": "434952785974717"
+						},
+						"linkedServiceName": {
+							"referenceName": "AzureDatabricks_LS",
+							"type": "LinkedServiceReference"
 						}
 					}
 				],
@@ -2275,7 +2329,7 @@
 						},
 						"userProperties": [],
 						"typeProperties": {
-							"jobId": "434952785974717"
+							"jobId": "323853826844255"
 						},
 						"linkedServiceName": {
 							"referenceName": "AzureDatabricks_LS",
