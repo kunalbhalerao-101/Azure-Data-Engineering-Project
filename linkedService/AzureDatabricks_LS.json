@@ -1,0 +1,12 @@
+{
+	"name": "AzureDatabricks_LS",
+	"properties": {
+		"annotations": [],
+		"type": "AzureDatabricks",
+		"typeProperties": {
+			"domain": "https://adb-7405606140133210.10.azuredatabricks.net",
+			"authentication": "MSI",
+			"workspaceResourceId": "/subscriptions/da937504-7462-45bd-acf6-145ae187c333/resourceGroups/ADF_Tutorial/providers/Microsoft.Databricks/workspaces/azure-databricks"
+		}
+	}
+}
